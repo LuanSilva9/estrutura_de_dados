@@ -54,7 +54,7 @@ void get_values(struct IntegerSet *head) {
     }
 }
 
-void dinamic_hashset(struct IntegerSet *head) {
+void dinamic_set(struct IntegerSet *head) {
     int length;
 
     printf("Qual vai ser o valor do seu Hashset?\n");
