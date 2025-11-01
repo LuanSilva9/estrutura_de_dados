@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct IntegerHashset {
+struct IntegerSet {
     int value;
-    struct IntegerHashset *NEXT;
+    struct IntegerSet *NEXT;
 };
 
-int can_i_insert_this(struct IntegerHashset *head, int value) {
-    struct IntegerHashset *current = head;
+int can_i_insert_this(struct IntegerSet *head, int value) {
+    struct IntegerSet *current = head;
 
     while(current != NULL) {
         if(current->value == value) return 0;
@@ -17,9 +17,9 @@ int can_i_insert_this(struct IntegerHashset *head, int value) {
     return 1;
 }
 
-void add(struct IntegerHashset *head, int value) {
-    if(can_i_insert_this(head, value) == 0) {
-        printf("Você não pode inserir esse valor, isso é um Set<>, valores iguais não sao permitidos");
+void add(struct IntegerSet *head, int value) {
+    if(!can_i_insert_this(head, value)) {
+        printf("Você não pode inserir esse valor, isso é um Set<>, valores iguais não sao permitidos\n----\n");
         
         return;
     } else {
@@ -28,13 +28,13 @@ void add(struct IntegerHashset *head, int value) {
             return;
         }
 
-        struct IntegerHashset *current = head;
+        struct IntegerSet *current = head;
 
         while(current->NEXT != NULL) {
             current = current->NEXT;
         }
 
-        struct IntegerHashset *next = malloc(sizeof(struct IntegerHashset));
+        struct IntegerSet *next = malloc(sizeof(struct IntegerSet));
 
         next->value = value;
         next->NEXT = NULL;
@@ -43,8 +43,8 @@ void add(struct IntegerHashset *head, int value) {
     }
 }
 
-void get_values(struct IntegerHashset *head) {
-    struct IntegerHashset *current = head;
+void get_values(struct IntegerSet *head) {
+    struct IntegerSet *current = head;
 
     printf("Valores da struct do Hashset Atual\n");
     while(current != NULL) {
@@ -54,22 +54,16 @@ void get_values(struct IntegerHashset *head) {
     }
 }
 
-int lengthOfHashset() {
+void dinamic_hashset(struct IntegerSet *head) {
     int length;
 
     printf("Qual vai ser o valor do seu Hashset?\n");
     scanf("%d", &length);
 
-    return length;
-}
-
-void dinamic_hashset(struct IntegerHashset *head) {
-    int dinamicHashset = lengthOfHashset();
-
-    for(int i = 0; i < dinamicHashset; i++) {
+    for(int i = 0; i < length; i++) {
         int value;
 
-        printf("\n Digite um valor: ");
+        printf("Digite um valor: ");
         scanf("%d", &value);
         printf("\n");
 
@@ -77,9 +71,9 @@ void dinamic_hashset(struct IntegerHashset *head) {
     }
 }
 
-void clear_values(struct IntegerHashset *head) {
-    struct IntegerHashset *current = head->NEXT;
-    struct IntegerHashset *temp;
+void clear_values(struct IntegerSet *head) {
+    struct IntegerSet *current = head->NEXT;
+    struct IntegerSet *temp;
     
     while(current != NULL) {
         temp = current->NEXT;
@@ -89,8 +83,7 @@ void clear_values(struct IntegerHashset *head) {
 }
 
 int main(void) {
-    struct IntegerHashset meuHashSet;
-
+    struct IntegerSet meuHashSet;
     meuHashSet.NEXT = NULL;
 
     dinamic_hashset(&meuHashSet);
